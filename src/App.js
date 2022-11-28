@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import ColorfulMessage from "./components/ColorfulMessage";
 import ColorfulMessage1 from "./components/ColorfulMessage1";
 
 const App = () => {
-  const onclickButton = () => alert();
+  const onclickCountUp = () => {
+    setNum(num + 1);
+  };
+  const [num, setNum] = useState(0);
   return (
     <>
       {/* 波括弧の外側がJSで内側はJSのオブジェクトという意味 */}
@@ -15,7 +18,8 @@ const App = () => {
       <ColorfulMessage1 color="blue">お元気ですか？</ColorfulMessage1>
 
       {/* 波括弧{}を入れるとJavascriptとして認識される */}
-      <button onclick={onclickButton}>ボタン</button>
+      <button onclick={onclickCountUp}>カウントアップ!</button>
+      <p>{num}</p>
     </>
   );
 };
