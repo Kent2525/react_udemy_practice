@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ColorfulMessage from "./components/ColorfulMessage";
 import ColorfulMessage1 from "./components/ColorfulMessage1";
 
 const App = () => {
-  const onclickCountUp = () => {
+  console.log("さいしょ");
+  const [num, setNum] = useState(0);
+  const [faceShowFlag, setFaceShowFlag] = useState(true);
+  
+  const onClickCountUp = () => {
     setNum(num + 1);
   };
-  const [num, setNum] = useState(0);
+  const onClickSwitchShowFlag = () => {
+    // !マークで現在の設定を逆に変更する効果がある
+    setFaceShowFlag(!faceShowFlag);
+  }
+
+  useEffect(() => {  
+    if (num > 0) {
+      if (num % 3 === 0) {
+        faceShowFlag || setFaceShowFlag(true); //faceShowFlagがfalseなら右辺にいく
+      } else {
+        faceShowFlag && setFaceShowFlag(false); //faceShowFlagがfalseなら右辺にいく
+      }
+    }
+  }, [num]);
+  
   return (
     <>
       {/* 波括弧の外側がJSで内側はJSのオブジェクトという意味 */}
@@ -18,8 +36,11 @@ const App = () => {
       <ColorfulMessage1 color="blue">お元気ですか？</ColorfulMessage1>
 
       {/* 波括弧{}を入れるとJavascriptとして認識される */}
-      <button onclick={onclickCountUp}>カウントアップ!</button>
+      <button onClick={onClickCountUp}>カウントアップ!</button>
+      <br />
+      <button onClick={onClickSwitchShowFlag}>on/off</button>
       <p>{num}</p>
+      {faceShowFlag && <p>( ^ω^ )</p>}
     </>
   );
 };
